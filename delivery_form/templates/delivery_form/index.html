@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/style.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/normalize.min.css' %}" />
+    <!-- <link rel="preload" href="fonts/bitter-v16-latin-ext_latin_cyrillic-ext_cyrillic-800.woff2" as="font"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <title>Курьерская служба Delivery Town</title>
+  </head>
+  <body>
+      <div class="background-cloud"></div>
+      <div class="background-sun"></div>
+    <header class="wrapper page-header">
+      <h1 class="visually-hidden">Delivery Town Темрюк</h1>
+      <a href="#" class="link page-header__logo">
+        <picture>
+          <source media="(min-width: 1440px)" srcset="{% static 'img/Group_1-desktop.svg' %}">
+          <source media="(min-width: 768px)" srcset="{% static 'img/Group_1.svg' %}">
+          <img class="page-header__logo-image1" src="{% static 'img/Logo part 1.svg' %}" alt="Курьерская служба Delivery Town">
+        </picture>
+        <picture>
+          <source media="(min-width: 1440px)" srcset="{% static 'img/Group_2-desktop.svg' %}">
+          <source media="(min-width: 768px)" srcset="{% static 'img/Group_2.svg' %}">
+          <img class="page-header__logo-image2" src="{% static 'img/Logo part 2.svg' %}" alt="Курьерская служба Delivery Town">
+        </picture>
+      </a>
+      <button class="button page-header__button" id="open">
+      </button>
+      <div class="background-light"></div>
+    </header>
+    <main class="wrapper page-main">
+      <section class="price">
+        <p class="text-box price-description">
+          <ul class="price-list site-list">
+            <h2 class="price-list__label">Прайс</h2>
+            <li class="price-list__item site-list__item">
+              <span class="price-list__item-name price-list__item-name--height">Темрюк 1 район (от Моста до 10 остановки)</span>
+              <span class="price-list__item-value">100 руб.</span>
+            </li>
+            <li class="price-list__item site-list__item">
+              <span class="price-list__item-name">Темрюк 2 район</span>
+              <span class="price-list__item-value">150 руб.</span>
+            </li>
+            <li class="price-list__item site-list__item">
+                <span class="price-list__item-name">Голубицкая, Курчанская</span>
+                <span class="price-list__item-value">250 руб.</span>
+            </li>
+          </ul>
+        </p>
+      </section>
+      <form action="{% url 'add_send_delivery_form' %}" onsubmit="disable_button()" class="main-form" method="POST">
+        {% csrf_token %}
+        <fieldset class="main-form-fieldset">
+          <h2 class="visually-hidden">Форма заказа доставки</h2>
+          <!-- <legend class="title main-form-fieldset__label">Закажите доставку</legend> -->
+          <h3 class="main-form-fieldset__label">Закажите доставку</h3>
+          <ul class="main-form-fieldset__list site-list">
+            <li class="main-form-fieldset__item site-list__item">
+              <label class="main-form-fieldset__item-label" for="{{ form.name.id_for_label }}">Имя</label>
+              {{form.name}}
+            </li>
+            <li class="main-form-fieldset__item site-list__item">
+              <label class="main-form-fieldset__item-label" for="{{ form.phone.id_for_label }}">Телефон</label>
+              {{form.phone}}
+            </li>
+            <li class="main-form-fieldset__item site-list__item">
+              <label class="main-form-fieldset__item-label" for="{{ form.shop.id_for_label }}">Магазин</label>
+              {{ form.shop }}
+            </li>
+            <li class="main-form-fieldset__item site-list__item">
+              <label class="main-form-fieldset__item-label" for="{{ form.what_buy.id_for_label }}">Что купить?</label>
+              {{ form.what_buy }}
+            </li>
+            <li class="main-form-fieldset__item site-list__item">
+              <label class="main-form-fieldset__item-label" for="{{ form.address.id_for_label }}">Адрес</label>
+              {{ form.address }}
+            </li>
+            <li class="main-form-fieldset__item site-list__item">
+              <label class="main-form-fieldset__item-label" for="{{ form.payment.id_for_label }}">Оплата</label>
+              {{ form.payment }}
+            </li>
+            <li class="main-form-fieldset__item site-list__item">
+              {{ form.personal_info }}
+              <label class="main-form-fieldset__item-label main-form-fieldset__item-label--check" for="{{ form.personal_info.id_for_label }}">Принимаю условия обработки персональных данных</label>
+              <span class="main-form-fieldset__item-span"></span>
+            </li>
+          </ul>
+          <input class="button main-form-fieldset__item-button" type="submit" id="form__submit" value="Отправить">
+        </fieldset>
+      </form>
+      <div class="background-city"></div>
+    </main>
+    <footer class="wrapper page-footer">
+      <ul class="page-footer__social site-list">
+        <h2 class="visually-hidden">Как с нами связаться</h2>
+        <li class="page-footer__social-item site-list__item">
+          <a class="link page-footer__social-link page-footer__social-link--vk" href="https://vk.com/delivery_town">
+            <picture>
+              <source media="(min-width: 1440px)" srcset="{% static 'img/cib_vk.svg' %}"/>
+              <source media="(min-width: 768px)" srcset="{% static 'img/cib_vk.svg' %}"/>
+              <img class="page-footer__social-img page-footer__social-img--vk" src="{% static 'img/cib_vk.svg' %}" width="32px" height="32px" alt="Мы Вконтакте" />
+            </picture>
+          </a>
+        </li>
+        <li class="page-footer__social-item site-list__item">
+          <a class="link page-footer__social-link page-footer__social-link--inst" href="https://www.instagram.com/delivery_town_23/">
+            <picture>
+              <source media="(min-width: 1440px)" srcset="{% static 'img/grommet-icons_instagram.svg' %}" />
+              <source media="(min-width: 768px)" srcset="{% static 'img/grommet-icons_instagram.svg' %}" />
+              <img class="page-footer__social-img page-footer__social-img--insta" src="{% static 'img/grommet-icons_instagram.svg' %}" width="32px" height="32px" alt="Мы в Инстаграм" />
+            </picture>
+          </a>
+        </li>
+        <li class="page-footer__social-item site-list__item">
+          <a class="link page-footer__social-link page-footer__social-link--wa" href="https://wa.me/79024071054">
+            <picture>
+              <source media="(min-width: 1440px)" srcset="{% static 'img/ant-design_whats-app-outlined.svg' %}" />
+              <source media="(min-width: 768px)" srcset="{% static 'img/ant-design_whats-app-outlined.svg' %}" />
+              <img class="page-footer__social-img page-footer__social-img--wa" src="{% static 'img/ant-design_whats-app-outlined.svg' %}" width="39px" height="39px" alt="Мы в WhatsApp" />
+            </picture>
+          </a>
+        </li>
+        <li class="page-footer__social-item site-list__item">
+          <a class="link page-footer__social-link page-footer__social-link--tg" href="https://t.me/Delivery_town">
+            <picture>
+              <source media="(min-width: 1440px)" srcset="{% static 'img/cib_telegram.svg' %}" />
+              <source media="(min-width: 768px)" srcset="{% static 'img/cib_telegram.svg' %}" />
+              <img class="page-footer__social-img page-footer__social-img--tg" src="{% static 'img/cib_telegram.svg' %}" width="34px" height="34px" alt="Мы в Telegram" />
+            </picture>
+          </a>
+        </li>
+        <li class="page-footer__social-item site-list__item">
+          <a class="link page-footer__social-link page-footer__social-link--vb" href=viber://add?number=79024071054">
+            <picture>
+              <source media="(min-width: 1440px)" srcset="{% static 'img/cib_viber.svg' %}" />
+              <source media="(min-width: 768px)" srcset="{% static 'img/cib_viber.svg' %}" />
+              <img class="page-footer__social-img page-footer__social-img--vb" src="{% static 'img/cib_viber.svg' %}" width="34px" height="34px" alt="Мы в Viber" />
+            </picture>
+          </a>
+        </li>
+      </ul>
+    </footer>
+    <script src="{% static 'js/index.js' %}">
+    </script>
+  </body>
+</html>
